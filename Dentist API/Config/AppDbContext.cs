@@ -10,10 +10,21 @@ public class AppDbContext:DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<Gender>().HasData(
+            new Gender
+            {
+                Id = 1,
+                GenderName = "Male"
+            },
+            new Gender
+            {
+                Id = 2,
+                GenderName = "Female"
+            });
         modelBuilder.Entity<User>()
             .HasOne(u=>u.Gender);
     }
 
-    private DbSet<User> Users { get; set; }
-    private DbSet<Gender> Genders { get; set; }
+    public DbSet<User> Users { get; set; }
+    public DbSet<Gender> Genders { get; set; }
 }
