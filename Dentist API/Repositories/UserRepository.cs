@@ -10,6 +10,7 @@ using Dentist_API.Dtos.Response.User;
 using Dentist_API.Models;
 using Dentist_API.Repositories.Interfaces;
 using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 
 namespace Dentist_API.Repositories;
@@ -26,11 +27,10 @@ public class UserRepository:IUserRepository
         secret = configuration.GetValue<string>("ApiSettings:Secret");
     }
 
-    public async Task<UserResponseDTO> GetUser(int userId)
+    public async Task<User> GetUser(int userId)
     {
-        var user = _context.Users.Where(u => u.Id == userId);
-        var response = _mapper.Map<UserResponseDTO>(user);
-        return response;
+        var user = await _context.Users.Where(u => u.Id == userId).FirstOrDefaultAsync();
+        return user;
     }
 
     public bool isUnique(string phone)
