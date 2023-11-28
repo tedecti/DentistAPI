@@ -23,7 +23,7 @@ public class AuthController : ControllerBase
         {
             return BadRequest("Password is not unique");
         }
-        var user = await _repository.Register(registerRequestDto);
+        await _repository.Register(registerRequestDto);
         return StatusCode(201);
     }
 
