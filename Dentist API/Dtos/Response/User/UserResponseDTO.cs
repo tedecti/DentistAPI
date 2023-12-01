@@ -1,3 +1,5 @@
+using Dentist_API.Models;
+
 namespace Dentist_API.Dtos.Response.User;
 
 public class UserResponseDTO
@@ -6,5 +8,5 @@ public class UserResponseDTO
     public string Surname { get; set; }
     public DateTime Birthdate { get; set; }
     public string Phone { get; set; }   
-    public int GenderId { get; set; }
+    public Gender Gender { get; set; }
 }

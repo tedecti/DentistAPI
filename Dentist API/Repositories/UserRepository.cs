@@ -29,7 +29,7 @@ public class UserRepository:IUserRepository
 
     public async Task<User> GetUser(int userId)
     {
-        var user = await _context.Users.Where(u => u.Id == userId).FirstOrDefaultAsync();
+        var user = await _context.Users.Include(u=>u.Gender).Where(u => u.Id == userId).FirstOrDefaultAsync();
         return user;
     }
 
