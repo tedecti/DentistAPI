@@ -26,7 +26,7 @@ public class AppointmentRepository : IAppointmentRepository
         var appointment = new Appointment
         {
             UserId = userId,
-            AppointmentDate = DateTime.UtcNow,
+            AppointmentDate = new DateTime(),
             DentistId = dentistId
         };
         _context.Add(appointment);
