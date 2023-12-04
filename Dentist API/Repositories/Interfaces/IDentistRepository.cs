@@ -5,7 +5,7 @@ namespace Dentist_API.Repositories.Interfaces;
 
 public interface IDentistRepository
 {
-    public Task<Dentist> GetDentists();
+    public Task<List<Dentist>> GetDentists();
     public Task<Dentist> GetDentist(int dentistId);
     public Task<Dentist> CreateDentist(DentistRequestDTO requestDto);
 }
