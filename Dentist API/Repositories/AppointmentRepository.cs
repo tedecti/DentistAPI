@@ -22,15 +22,15 @@ public class AppointmentRepository : IAppointmentRepository
     }
 
     public async Task<Appointment> CreateAppointment(AppointmentRequestDTO requestDto, int userId, int dentistId)
-    {
-        var appointment = new Appointment
-        {
-            UserId = userId,
-            AppointmentDate = new DateTime(),
-            DentistId = dentistId
-        };
-        _context.Add(appointment);
-        await _context.SaveChangesAsync();
-        return appointment;
-    }
+         {
+             var newAppointment = new Appointment
+             {
+                 UserId = userId,
+                 AppointmentDate = new DateTime(),
+                 DentistId = dentistId
+             };
+             _context.Add(newAppointment);
+             await _context.SaveChangesAsync();
+             return newAppointment;
+         }
 }
