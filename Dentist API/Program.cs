@@ -18,9 +18,11 @@ namespace Puppy
 // Add services to the container.
 
             builder.Services.AddDbContext<AppDbContext>();
-            
+
             builder.Services.AddScoped<IUserRepository, UserRepository>();
-var key = builder.Configuration.GetValue<string>("ApiSettings:Secret");
+            builder.Services.AddScoped<IDentistRepository, DentistRepository>();
+            builder.Services.AddScoped<IAppointmentRepository, AppointmentRepository>();
+            var key = builder.Configuration.GetValue<string>("ApiSettings:Secret");
 
             builder.Services.AddAuthentication(x =>
             {
@@ -81,7 +83,7 @@ var key = builder.Configuration.GetValue<string>("ApiSettings:Secret");
 
 
             var app = builder.Build();
-            
+
             app.UseSwagger();
             app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Lotus.API.Integration v1"));
 
