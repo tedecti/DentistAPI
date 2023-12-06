@@ -51,7 +51,7 @@ namespace Dentist_API.Migrations
                     Name = table.Column<string>(type: "text", nullable: false),
                     Surname = table.Column<string>(type: "text", nullable: false),
                     Password = table.Column<string>(type: "text", nullable: false),
-                    Birthdate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    Birthdate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     Phone = table.Column<string>(type: "text", nullable: false),
                     GenderId = table.Column<int>(type: "integer", nullable: false)
                 },
@@ -73,7 +73,8 @@ namespace Dentist_API.Migrations
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     UserId = table.Column<int>(type: "integer", nullable: false),
-                    DentistId = table.Column<int>(type: "integer", nullable: false)
+                    DentistId = table.Column<int>(type: "integer", nullable: false),
+                    AppointmentDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false)
                 },
                 constraints: table =>
                 {
