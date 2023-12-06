@@ -6,7 +6,11 @@ namespace Dentist_API.Config;
 public class AppDbContext:DbContext
 {
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        => optionsBuilder.UseNpgsql("Host=127.0.0.1;Database=dentist;Username=postgres;Password=123");
+    {
+        optionsBuilder.UseNpgsql("Host=127.0.0.1;Database=dentist;Username=postgres;Password=123");
+        AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+    }
+
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
