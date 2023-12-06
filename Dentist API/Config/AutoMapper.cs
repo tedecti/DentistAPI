@@ -14,5 +14,6 @@ public class AutoMapper : Profile
         CreateMap<User, UserResponseDTO>();
         CreateMap<Appointment, AppointmentResponseDTO>();
         CreateMap<Dentist, DentistResponseDTO>();
+        CreateMap<User, ShortUserResponseDTO>();
     }
 }
