@@ -14,17 +14,6 @@ public class DentistRepository : IDentistRepository
     {
         _context = context;
     }
-    public async Task<List<Dentist>> GetDentists()
-    {
-        var dentists = await _context.Dentists.ToListAsync();
-        return dentists;
-    }
-
-    public async Task<Dentist> GetDentist(int dentistId)
-    {
-        var dentist = await _context.Dentists.Where(d => d.Id == dentistId).FirstOrDefaultAsync();
-        return dentist;
-    }
 
     public async Task<Dentist> CreateDentist(DentistRequestDTO requestDto)
     {

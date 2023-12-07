@@ -18,19 +18,12 @@ namespace Dentist_API.Repositories;
 public class UserRepository:IUserRepository
 {
     private readonly AppDbContext _context;
-    private readonly IMapper _mapper;
     private readonly string secret;
 
     public UserRepository(AppDbContext context, IConfiguration configuration)
     {
         _context = context;
         secret = configuration.GetValue<string>("ApiSettings:Secret");
-    }
-
-    public async Task<User> GetUser(int userId)
-    {
-        var user = await _context.Users.Include(u=>u.Gender).Where(u => u.Id == userId).FirstOrDefaultAsync();
-        return user;
     }
 
     public bool isUnique(string phone)

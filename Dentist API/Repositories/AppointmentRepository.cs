@@ -15,11 +15,6 @@ public class AppointmentRepository : IAppointmentRepository
         _context = context;
     }
     
-    public async Task<Appointment> GetAppointment(int userId)
-    {
-        var appointment = await _context.Appointments.Include(a=>a.User).Include(a=>a.Dentist).Include(a=>a.User.Gender).Where(a => a.UserId == userId).FirstOrDefaultAsync();
-        return appointment;
-    }
 
     public async Task<Appointment> CreateAppointment(AppointmentRequestDTO requestDto, int userId, int dentistId)
          {

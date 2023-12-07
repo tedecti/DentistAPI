@@ -9,6 +9,5 @@ public interface IUserRepository
 {
     Task<LoginResponseDTO> Login(LoginRequestDTO loginRequestDto);
     Task<User> Register(RegisterRequestDTO registerRequestDto);
-    Task<User> GetUser(int userId);
     bool isUnique(string phone);
 }
