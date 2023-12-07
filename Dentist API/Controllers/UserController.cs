@@ -8,6 +8,7 @@ using Dentist_API.Repositories.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Puppy.Services.Interfaces;
 
 namespace Dentist_API.Controllers
 {
@@ -15,13 +16,13 @@ namespace Dentist_API.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-        private readonly IUserRepository _repository;
+        private readonly IUserService _service;
         private readonly IMapper _mapper;
 
-        public UserController(IUserRepository repository, IMapper mapper)
+        public UserController(IMapper mapper, IUserService service)
         {
-            _repository = repository;
             _mapper = mapper;
+            _service = service;
         }
 
         [HttpGet("me")]
@@ -29,7 +30,7 @@ namespace Dentist_API.Controllers
         public async Task<IActionResult> GetMe()
         {
             var userId = Convert.ToInt32(HttpContext.User.Identity.Name);
-            var user = await _repository.GetUser(userId);
+            var user = await _service.GetUser(userId);
             if (user == null)
             {
                 return NotFound();
@@ -41,7 +42,7 @@ namespace Dentist_API.Controllers
         [HttpGet("{userId}")]
         public async Task<IActionResult> GetUser(int userId)
         {
-            var user = await _repository.GetUser(userId);
+            var user = await _service.GetUser(userId);
             var response = _mapper.Map<UserResponseDTO>(user);
             return Ok(response);
         }

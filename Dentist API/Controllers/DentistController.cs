@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Puppy.Dtos.Request.Dentist;
+using Puppy.Services.Interfaces;
 
 namespace Dentist_API.Controllers
 {
@@ -17,17 +18,19 @@ namespace Dentist_API.Controllers
     {
         private readonly IDentistRepository _repository;
         private readonly IMapper _mapper;
+        private readonly IDentistService _service;
 
-        public DentistController(IDentistRepository repository, IMapper mapper)
+        public DentistController(IDentistRepository repository, IMapper mapper, IDentistService service)
         {
             _repository = repository;
             _mapper = mapper;
+            _service = service;
         }
         
         [HttpGet("all")]
         public async Task<IActionResult> GetDentists()
         {
-            var dentists = await _repository.GetDentists();
+            var dentists = await _service.GetDentists();
             var dto = _mapper.Map<IEnumerable<DentistResponseDTO>>(dentists);
             return Ok(dto);
         }
@@ -35,7 +38,7 @@ namespace Dentist_API.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetDentist(int id)
         {
-            var dentist = await _repository.GetDentist(id);
+            var dentist = await _service.GetDentist(id);
             var dto = _mapper.Map<DentistResponseDTO>(dentist);
             return Ok(dto);
         }

@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Puppy.Dtos.Response.Appointment;
+using Puppy.Services.Interfaces;
 
 namespace Dentist_API.Controllers
 {
@@ -17,11 +18,13 @@ namespace Dentist_API.Controllers
     {
         private readonly IMapper _mapper;
         private readonly IAppointmentRepository _repository;
+        private readonly IAppointmentService _service;
 
-        public AppointmentController(IMapper mapper, IAppointmentRepository repository)
+        public AppointmentController(IMapper mapper, IAppointmentRepository repository, IAppointmentService service)
         {
             _mapper = mapper;
             _repository = repository;
+            _service = service;
         }
         
         [HttpGet]
@@ -29,7 +32,7 @@ namespace Dentist_API.Controllers
         public async Task<IActionResult> GetAppointment()
         {
             var user = Convert.ToInt32(HttpContext.User.Identity.Name);
-            var response = await _repository.GetAppointment(user);
+            var response = await _service.GetAppointment(user);
             var mappedResponse = _mapper.Map<AppointmentResponseDTO>(response);
             return Ok(mappedResponse);
         }
